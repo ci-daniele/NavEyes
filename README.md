@@ -9,15 +9,21 @@ Questo progetto dimostra l'uso di **ChibiOS** su microcontrollore STM32G474RE pe
 ---
 
 ## ⚙️ Funzionalità principali
+- **ADC**:
+  - Acquisizione continua su due canali (A0, A1).
+  - Media dei valori su buffer circolare.
+  - Invio comandi via Bluetooth in base a DEADZONE.
 - **Ultrasuoni**: misurazione distanza in cm, con soglia di sicurezza a 150 cm.
 - **Bluetooth**:
   - Invio di comandi di stato (`A` = ostacolo vicino, `D` = libero).
   - Ricezione di comandi remoti (`C` centro, `D` destra, `S` sinistra, `P` pausa).
 - **Servo motore**:
   - Movimento controllato a destra e sinistra con ritorno automatico al centro.
-- **PWM**:
-  - Generazione segnale per il servo.
-  - Thread dedicato con gestione LED di stato.
+- **PWM Vibrazione**:
+  - Controllo duty cycle tramite variabile `vibrazione`.
+  - LED verde per indicazione attività.
+- **Button Input**:
+  - Attiva/disattiva acquisizione e trasmissione.
 - **LED di bordo**: lampeggio periodico per indicare che il sistema è attivo.
 
 ---
@@ -41,14 +47,13 @@ Questo progetto dimostra l'uso di **ChibiOS** su microcontrollore STM32G474RE pe
 
 ---
 
-## 🔌 Pinout
-| Periferica       | Pin STM32 | Note            |
-|------------------|-----------|-----------------|
-| HC-SR04 Trigger  | `PA10`    | Output          |
-| HC-SR04 Echo     | `PB6`     | Input (ICU)     |
-| Servo PWM        | `PB4`     | PWM (TIM3_CH1)  |
-| Bluetooth TX     | `PB8`     | USART3_TX       |
-| Bluetooth RX     | `PB9`     | USART3_RX       |
-| Debug UART TX    | `PA2`     | USART2_TX       |
-| Debug UART RX    | `PA3`     | USART2_RX       |
-| LED Verde        | `LINE_LED_GREEN` | onboard |
+## 📡 Pinout
+| Funzione           | Pin STM32 | Note            |
+|-------------------|-----------|----------------|
+| ADC1_CH1           | PA0       | A0 analog       |
+| ADC1_CH2           | PA1       | A1 analog       |
+| PWM Vibrazione     | PB4       | TIM3_CH1        |
+| LED Verde          | PA8       | Output          |
+| Bottone            | PA4       | Pull-up         |
+| Serial HC-05 TX/RX | SD1       | USART1          |
+| Serial Debug       | SD2       | USART2          |
